@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Probabilistic Precipitation Nowcasting with Rectified Flow Transformers">
+  <meta name="description" content="FREUD introduces frame-wise encoding, united probabilistic decoding, and latent rectified-flow nowcasting for calibrated, efficient precipitation forecasting.">
+  <meta name="keywords" content="weather nowcasting, precipitation forecasting, rectified flow, transformers, uncertainty quantification, SEVIR">
+  <meta name="author" content="Johannes Schusterbauer, Jannik Wiese, Nick Stracke, Timy Phan, Bjorn Ommer">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CompVis @ LMU Munich">
+  <meta property="og:title" content="Probabilistic Precipitation Nowcasting with Rectified Flow Transformers">
+  <meta property="og:description" content="Calibrated and efficient precipitation nowcasting with FREUD and latent rectified-flow transformers.">
+  <meta property="og:url" content="./index.html">
+  <meta property="og:image" content="static/images/carousel1.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="FREUD precipitation nowcasting overview">
+  <meta property="article:published_time" content="2026-03-25T00:00:00.000Z">
+  <meta property="article:author" content="Johannes Schusterbauer">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Weather nowcasting">
+  <meta property="article:tag" content="Rectified flow">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@compvis_lmu">
+  <meta name="twitter:creator" content="@compvis_lmu">
+  <meta name="twitter:title" content="Probabilistic Precipitation Nowcasting with Rectified Flow Transformers">
+  <meta name="twitter:description" content="FREUD enables uncertainty-aware and efficient precipitation nowcasting in latent space.">
+  <meta name="twitter:image" content="static/images/carousel1.jpg">
+  <meta name="twitter:image:alt" content="FREUD precipitation nowcasting overview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Probabilistic Precipitation Nowcasting with Rectified Flow Transformers">
+  <meta name="citation_author" content="Schusterbauer, Johannes">
+  <meta name="citation_author" content="Wiese, Jannik">
+  <meta name="citation_author" content="Stracke, Nick">
+  <meta name="citation_author" content="Phan, Timy">
+  <meta name="citation_author" content="Ommer, Björn">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="CVPR 2026">
+  <meta name="citation_pdf_url" content="static/pdfs/Probabilistic_Precipitation_Nowcasting_with_Rectified_Flow_Transformers.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>Probabilistic Precipitation Nowcasting with Rectified Flow Transformers</title>
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Probabilistic Precipitation Nowcasting with Rectified Flow Transformers",
+    "description": "FREUD combines frame-wise encoding and united probabilistic decoding with latent rectified-flow nowcasting for calibrated precipitation forecasts.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Johannes Schusterbauer",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "CompVis, LMU Munich"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jannik Wiese",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "CompVis, LMU Munich"
+        }
+      }
+    ],
+    "datePublished": "2026-03-25",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CVPR 2026"
+    },
+    "url": "./index.html",
+    "image": "static/images/carousel1.jpg",
+    "keywords": ["weather nowcasting", "rectified flow", "transformers", "uncertainty quantification", "SEVIR"],
+    "abstract": "We introduce FREUD, a frame-wise encoder and united probabilistic decoder based on rectified flow transformers, and combine it with latent-space nowcasting for state-of-the-art CRPS and SSIM on SEVIR.",
+    "citation": "Schusterbauer et al., Probabilistic Precipitation Nowcasting with Rectified Flow Transformers, CVPR 2026.",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "./index.html"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Weather nowcasting"
+      },
+      {
+        "@type": "Thing", 
+        "name": "Generative forecasting"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CompVis @ LMU Munich",
+    "url": "https://www.compvis.uni-muenchen.de",
+    "logo": "static/images/carousel1.jpg",
+    "sameAs": [
+      "https://x.com/compvis_lmu",
+      "https://github.com/CompVis"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Probabilistic Precipitation Nowcasting with Rectified Flow Transformers</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                Johannes Schusterbauer<sup>*</sup>,</span>
+                <span class="author-block">
+                  Jannik Wiese<sup>*</sup>,</span>
+                  <span class="author-block">
+                    Nick Stracke,</span>
+                    <span class="author-block">
+                      Timy Phan,</span>
+                      <span class="author-block">
+                        Björn Ommer
+                      </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">CompVis @ LMU Munich, Munich Center for Machine Learning (MCML)<br>CVPR 2026</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="#" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="ai ai-arxiv"></i>
+                        </span>
+                        <span>arXiv (Soon)</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="#" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code (Soon)</span>
+                  </a>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/teaser_figure_weather.svg" alt="Teaser figure" style="display: block; margin: 0 auto; width: 95%; height: auto;" />
+      <h2 class="subtitle has-text-centered">
+        Our generative decoder allows to quantify uncertainty about compression and covers the ground truth precipitation.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser figure -->
+
+<!-- TL;DR -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">TL;DR</h2>
+        <div class="content">
+          <ul>
+            <li>We introduce FREUD, a frame-wise encoder and united probabilistic decoder for weather nowcasting.</li>
+            <li>Our first stage preserves decoding uncertainty, enabling ensemble-based aleatoric uncertainty estimates.</li>
+            <li>The method avoids perceptual/adversarial losses and uses stochastic tanh regularization for a stable latent space.</li>
+            <li>Combined with latent rectified-flow forecasting, it supports flexible conditioning and robust updates.</li>
+            <li>On SEVIR, it achieves state-of-the-art distributional and perceptual forecasting quality.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End TL;DR -->
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Accurate weather forecasts are essential across various domains and are safety-critical in extreme weather conditions. Compared to simulation-based forecasting, data-driven approaches show greater efficiency, enabling short-term, high-resolution nowcasting. In particular, diffusion models proved effective in weather nowcasting due to their strong probabilistic foundation. However, existing methods rely on deterministic compression to reduce the complexity of high-dimensional weather data, limiting their ability to capture uncertainty in the decoding process. In this work, we introduce FREUD, a Frame-wise encoder and United Decoder model based on rectified flow transformers for efficient compression of spatio-temporal weather data. Frame-wise encoding enables continuous forecast updates, while the unified video decoder ensures temporal consistency. Our uncertainty-preserving first stage allows us to capture aleatoric uncertainty through ensembling, which is particularly beneficial for extreme weather events with high decoding variability. We achieve state-of-the-art performance in precipitation nowcasting with a compact latent-space rectified flow transformer on the SEVIR benchmark and show further performance gains by scaling model size. With FREUD and the latent rectified flow model, we aim to push the boundaries of data-driven weather nowcasting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Forecast video -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <video muted loop width="100%" preload="metadata" autoplay muted loop playsinline>
+        <source src="static/video_samples/forecasts/forecast_combined.webm" type="video/webm">
+      </video>
+    </div>
+  </div>
+</section>
+<!-- End forecast video -->
+
+
+<!-- Method figure -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method</h2>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <img src="static/images/architecture-fig.svg" alt="Architecture figure" style="display: block; margin: 0 auto; width: auto; height: 300px;" />
+        </div>
+        <div class="column is-half">
+          <img src="static/images/inference-pipeline.svg" alt="Inference pipeline figure" style="display: block; margin: 0 auto; width: auto; height: 300px;" />
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <p class="content" style="margin-top: 0.5rem;">
+            Our pipeline is built around FREUD, a first-stage model with a frame-wise transformer encoder and a united probabilistic rectified-flow decoder. The frame-wise encoder processes each context frame independently, which prevents information leakage from future to past and supports incremental updates when new radar frames arrive. The united decoder then reconstructs all frames jointly, improving temporal consistency and reducing flickering artifacts that appear with purely frame-wise decoding. Because decoding is probabilistic, we can sample multiple reconstructions from the same latent representation and estimate decoding uncertainty through ensemble variance. We regularize the latent space with stochastic tanh regularization, producing bounded and smooth latents without relying on adversarial or perceptual losses. On top of this first stage, we train a latent-space rectified-flow forecasting model with masking-based conditioning, allowing robust inference under variable numbers of observed input frames. During inference, we sample ensemble forecasts in latent space and decode them to pixel space, yielding calibrated, uncertainty-aware precipitation nowcasts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method figure -->
+
+<!-- Key Results -->
+<section class="section is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Key Results</h2>
+        <div class="columns is-variable is-4" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+          <div class="column is-half">
+            <img src="static/images/sota_sevir_table.png" alt="SOTA SEVIR results table" style="display: block; margin: 0 auto; width: 100%; height: auto;" />
+          </div>
+          <div class="column is-half">
+            <img src="static/images/recon_performance_table.png" alt="Reconstruction performance table" style="display: block; margin: 0 auto; width: 100%; height: auto;" />
+          </div>
+        </div>
+        <div class="content">
+          <ul>
+            <li><strong>State-of-the-art forecasting quality on SEVIR:</strong> FREUD + LSM-L reaches CRPS 0.0190 and SSIM 0.7841, improving over prior latent diffusion baselines in distributional and perceptual quality.</li>
+            <li><strong>Better calibration:</strong> Ensemble rank histograms are substantially closer to uniform than CasCast, indicating less overconfident predictions.</li>
+            <li><strong>Uncertainty where it matters:</strong> Reconstruction ensemble variance increases with precipitation intensity and tracks chaotic extreme-weather regions.</li>
+            <li><strong>Efficient and scalable:</strong> The first stage is lighter than previous designs and the latent forecaster improves consistently with model scaling.</li>
+            <li><strong>Robust operational behavior:</strong> Masking-based conditioning supports variable input context and remains effective with limited or imperfect observations.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Key Results -->
+
+
+<!-- Comparison -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Forecasts Comparison</h2>
+      <video width="100%" preload="metadata" autoplay muted loop playsinline>
+        <source src="static/video_samples/comparison_forecasts/comp_combined.mp4" type="video/mp4">
+      </video>
+      <div class="column is-full">
+      <p class="content" style="margin-top: 0.5rem;">
+        Our forecasts remain realistic and sharp, while CasCast diverges to unrealistic predictions and Earthformer produces increasingly blurry forecasts.
+      </p>
+      </div>
+      <h2 class="title is-3 has-text-centered" style="margin-top: 2rem;">Extreme Weather</h2>
+      <video width="60%" style="display: block; margin: 0 auto;" preload="metadata" autoplay muted loop playsinline>
+        <source src="static/video_samples/hurricanes/combined_hurricane_video.webm" type="video/webm">
+      </video>
+      <div class="column is-full">
+      <p class="content" style="margin-top: 0.5rem;">
+        Our model is able to capture the chaotic dynamics of extreme weather events such as hurricanes, capturing the complex circular motion of long-tail events.
+      </p>
+      </div>
+    </div>
+    
+</section>
+<!-- Comparison -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">Citation</h2>
+      </div>
+      <pre id="bibtex-code"><code>Coming soon.</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>

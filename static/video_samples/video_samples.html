@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Probabilistic Weather Nowcasting with Rectified Flow Transformers</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 5%;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0.6em 0;      /* tighten vertical spacing a little */
+            margin-bottom: 2em;
+        }
+
+        h2 {
+            margin-top: 1.5em;
+            margin-left: 12%;
+            margin-right: 12%;
+        }
+
+        video {
+            max-width: 47%;
+            height: auto;
+            display: block;
+            margin: 1em auto;
+        }
+
+        .caption {
+            margin-right: 12%;
+            margin-left: 12%;
+            color:rgb(96, 96, 96);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Probabilistic Weather Nowcasting with Rectified Flow Transformers</h1>
+    <h2>1. Comparison to previous work</h2>
+
+    <video src="comparison_forecasts/comp_combined.mp4" autoplay muted loop playsinline> Your browser does not support the video tag.</video>
+
+    <p class="caption">
+        Our forecast aligns more closely with the ground truth than CasCast and Earthformer. Earthformer forecasts become blurry over time due to the deterministic training objective. In CasCast extreme precipitation is heavily oversampled and temporal consistency is impaired (see right-most example). Our forecasts exhibit high temporal consistency through united decoding and remain sharp. 
+    </p>
+
+    <h2>2. Forecasts</h2>
+
+    <video src="forecasts/forecast_combined.webm" autoplay muted loop playsinline> Your browser does not support the video tag.</video>
+
+    <p class="caption">
+        Forecast ensemble members are sharp and show high temporal consistency. All ensemble members are perceptually close to the ground truth but exhibit variability in details especially in high precipitation regions.
+    </p>
+
+    <video src="hurricanes/combined_hurricane_video.webm" autoplay muted loop playsinline> Your browser does not support the video tag.</video>
+
+    <p class="caption">
+        For rare storm events such as hurricanes our model is able to capture the circular motion and produce diverse yet realistic forecasts.
+    </p>
+
+    <h2>3. Reconstructions</h2>
+
+    <video src="reconstructions/recon_combined.webm" autoplay muted loop playsinline> Your browser does not support the video tag.</video>
+
+    <p class="caption">
+        FREUD reconstruction ensemble members show high similarity and temporal consistency. variability in details is observed especially in high precipitation regions. All ensemble members match the ground truth well.
+    </p>
+
+    <h2>4. Frame-wise vs. united decoding</h2>
+
+    <video src="frame-wise_v_freud/diffae_v_freud_combined.webm" autoplay muted loop playsinline> Your browser does not support the video tag.</video>
+
+    <p class="caption">
+        Frame-wise DiffAE vs. FREUD reconstructions. Both variants match the ground truth well. However, the frame-wise decoding shows impaired temporal consistency especially in high precipitation regions.
+    </p>
+
+</body>
+</html>
