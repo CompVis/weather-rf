@@ -119,6 +119,87 @@ function setupVideoCarouselAutoplay() {
     });
 }
 
+function setupForecastComparison() {
+    const comparisons = document.querySelectorAll('.forecast-comparison');
+    const comparisonControls = [];
+
+    const setSharedReveal = (value) => {
+        comparisonControls.forEach(({ slider, updateReveal }) => {
+            slider.value = value;
+            updateReveal(value);
+        });
+    };
+
+    comparisons.forEach(comparison => {
+        const slider = comparison.querySelector('.forecast-comparison__slider');
+        const viewport = comparison.querySelector('.forecast-comparison__viewport');
+        const overlay = comparison.querySelector('.forecast-comparison__overlay');
+        const divider = comparison.querySelector('.forecast-comparison__divider');
+        const baseVideo = comparison.querySelector('.forecast-comparison__video--base');
+        const overlayVideo = comparison.querySelector('.forecast-comparison__video--overlay');
+
+        if (!slider || !viewport || !overlay || !divider || !baseVideo || !overlayVideo) {
+            return;
+        }
+
+        const updateReveal = (value) => {
+            const revealPosition = value + '%';
+            viewport.style.setProperty('--reveal-position', revealPosition);
+        };
+
+        const syncPlayback = (sourceVideo, targetVideo) => {
+            if (Math.abs(sourceVideo.currentTime - targetVideo.currentTime) > 0.08) {
+                targetVideo.currentTime = sourceVideo.currentTime;
+            }
+        };
+
+        const startPosition = comparison.dataset.startPosition || slider.value;
+        slider.value = startPosition;
+        comparisonControls.push({ slider, updateReveal });
+
+        slider.addEventListener('input', () => {
+            setSharedReveal(slider.value);
+        });
+
+        baseVideo.addEventListener('play', () => {
+            overlayVideo.play().catch(() => {});
+        });
+
+        overlayVideo.addEventListener('play', () => {
+            baseVideo.play().catch(() => {});
+        });
+
+        baseVideo.addEventListener('pause', () => {
+            if (!overlayVideo.paused) {
+                overlayVideo.pause();
+            }
+        });
+
+        overlayVideo.addEventListener('pause', () => {
+            if (!baseVideo.paused) {
+                baseVideo.pause();
+            }
+        });
+
+        baseVideo.addEventListener('seeking', () => syncPlayback(baseVideo, overlayVideo));
+        overlayVideo.addEventListener('seeking', () => syncPlayback(overlayVideo, baseVideo));
+        baseVideo.addEventListener('timeupdate', () => syncPlayback(baseVideo, overlayVideo));
+        overlayVideo.addEventListener('timeupdate', () => syncPlayback(overlayVideo, baseVideo));
+
+        baseVideo.addEventListener('loadedmetadata', () => {
+            overlayVideo.currentTime = baseVideo.currentTime;
+        });
+
+        overlayVideo.addEventListener('loadedmetadata', () => {
+            baseVideo.currentTime = overlayVideo.currentTime;
+        });
+    });
+
+    if (comparisonControls.length > 0) {
+        setSharedReveal(comparisonControls[0].slider.value);
+    }
+}
+
 $(document).ready(function() {
     // Check for click events on the navbar burger icon
 
@@ -138,5 +219,6 @@ $(document).ready(function() {
     
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
+    setupForecastComparison();
 
 })

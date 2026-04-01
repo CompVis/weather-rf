@@ -233,7 +233,7 @@
     <div class="hero-body">
       <img src="static/images/teaser_figure_weather.svg" alt="Teaser figure" style="display: block; margin: 0 auto; width: 95%; height: auto;" />
       <h2 class="subtitle has-text-centered">
-        Our generative decoder allows to quantify uncertainty about compression and covers the ground truth precipitation.
+        Our generative decoder can quantify uncertainty about compression and covers the true precipitation in heavy-rain scenarios, while deterministic decoding collapses to incorrect modes.
       </h2>
     </div>
   </div>
@@ -248,11 +248,19 @@
         <h2 class="title is-3 has-text-centered">TL;DR</h2>
         <div class="content">
           <ul>
-            <li>We introduce FREUD, a frame-wise encoder and united probabilistic decoder for weather nowcasting.</li>
+            <li><strong>Generative Decoding.</strong> Generative rectified-flow encoder–decoder for nowcasting with uncertainty-aware compression.</li>
+            <li><strong>FREUD Architecture.</strong> Frame-wise encoder + unified decoder enables variable-length inputs, robustness to frame drops, and preserves temporal consistency.</li>
+            <li><strong>Simple Training.</strong> No loss weight tuning, trained with a simple, stable flow-matching objective.</li>
+            <li><strong>SOTA Nowcasting.</strong> Rectified-flow model in <i>FREUD</i> latent space achieves state-of-the-art distributional and perceptual forecasting quality.</li>
+            <!-- <li><strong>Generative Decoding.</strong> We propose a rectified flow encoder-decoder for precipitation nowcasting, which allows uncertainty quantification of compression.</li>
+            <li><strong>FREUD Architecture.</strong> We use an asymmetric frame-wise encoder and unified decoder, which naturally supports variable length-inputs, is robust against frame drops and preserved temporal consistency.</li>
+            <li><strong>Designed for Simplicity.</strong> Our compression stage model avoids balancing perceptual, adversarial, and regularization losses and can be trained with a simple, stable flow matching objective.</li>
+            <li><strong>State-of-the-Art Probabilistic Nowcasting.</strong>A scalable rectified flow model in FREUD latent space achieves state-of-the-art distributional and perceptual forecasting quality.</li> -->
+            <!-- <li>We introduce FREUD, a frame-wise encoder and united probabilistic decoder for weather nowcasting.</li>
             <li>Our first stage preserves decoding uncertainty, enabling ensemble-based aleatoric uncertainty estimates.</li>
             <li>The method avoids perceptual/adversarial losses and uses stochastic tanh regularization for a stable latent space.</li>
             <li>Combined with latent rectified-flow forecasting, it supports flexible conditioning and robust updates.</li>
-            <li>On SEVIR, it achieves state-of-the-art distributional and perceptual forecasting quality.</li>
+            <li>On SEVIR, it achieves state-of-the-art distributional and perceptual forecasting quality.</li> -->
           </ul>
         </div>
       </div>
@@ -283,10 +291,142 @@
 <!-- Forecast video -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container is-max-desktop">
-      <video muted loop width="100%" preload="metadata" autoplay muted loop playsinline>
-        <source src="static/video_samples/forecasts/forecast_combined.webm" type="video/webm">
-      </video>
+    <div class="container is-fluid forecast-comparison-container">
+      <div class="forecast-comparison-stack">
+        <div class="forecast-comparison-grid">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_1_mean.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Prediction Mean</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction mean">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_2_mean.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Prediction Mean</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction mean">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_3_mean.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_3_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Prediction Mean</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction mean">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_4_mean.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_4_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Prediction Mean</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction mean">
+          </div>
+        </div>
+
+        <div class="forecast-comparison-grid">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_1_ens.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction ensemble">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_2_ens.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction ensemble">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_3_ens.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_3_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction ensemble">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/sample_4_ens.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/sample_4_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over prediction ensemble">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -309,7 +449,7 @@
       <div class="columns is-centered">
         <div class="column is-full">
           <p class="content" style="margin-top: 0.5rem;">
-            Our pipeline is built around FREUD, a first-stage model with a frame-wise transformer encoder and a united probabilistic rectified-flow decoder. The frame-wise encoder processes each context frame independently, which prevents information leakage from future to past and supports incremental updates when new radar frames arrive. The united decoder then reconstructs all frames jointly, improving temporal consistency and reducing flickering artifacts that appear with purely frame-wise decoding. Because decoding is probabilistic, we can sample multiple reconstructions from the same latent representation and estimate decoding uncertainty through ensemble variance. We regularize the latent space with stochastic tanh regularization, producing bounded and smooth latents without relying on adversarial or perceptual losses. On top of this first stage, we train a latent-space rectified-flow forecasting model with masking-based conditioning, allowing robust inference under variable numbers of observed input frames. During inference, we sample ensemble forecasts in latent space and decode them to pixel space, yielding calibrated, uncertainty-aware precipitation nowcasts.
+            Our pipeline is built around FREUD, a first-stage model with a frame-wise transformer encoder and a united generative rectified flow decoder. The frame-wise encoder processes each context frame independently, which prevents information leakage from future to past and supports incremental updates when new radar frames arrive. The united decoder then reconstructs all frames jointly, improving temporal consistency and reducing artifacts that appear with purely frame-wise decoding. Because decoding is probabilistic, we can sample multiple reconstructions from the same latent representation and estimate decoding uncertainty through ensemble variance. We regularize the latent space with a novel stochastic tanh regularization, producing bounded and smooth latents without relying on adversarial or perceptual losses. On top of this first stage, we train a latent-space rectified-flow forecasting model with masking-based conditioning, allowing robust inference under variable numbers of observed input frames. During inference, we sample ensemble forecasts in latent space and decode them to pixel space, yielding calibrated, uncertainty-aware precipitation nowcasts.
           </p>
         </div>
       </div>
@@ -334,11 +474,12 @@
         </div>
         <div class="content">
           <ul>
-            <li><strong>State-of-the-art forecasting quality on SEVIR:</strong> FREUD + LSM-L reaches CRPS 0.0190 and SSIM 0.7841, improving over prior latent diffusion baselines in distributional and perceptual quality.</li>
-            <li><strong>Better calibration:</strong> Ensemble rank histograms are substantially closer to uniform than CasCast, indicating less overconfident predictions.</li>
+            <li><strong>State-of-the-art forecasting quality on SEVIR:</strong> An L-scale ViT (LSM-L) in FREUD latent space reaches state-of-the-art CRPS and SSIM, improving over prior latent diffusion baselines in distributional and perceptual quality, while maintaining competitive localization performance (HSS, CSI).</li>
+            <li><strong>Improved Reconstruction:</strong> FREUD achieves superior reconstruction quality compared to deterministic baselines, which rely on adversarial/perceptual losses as well as KL-regularization.</li>
+            <li><strong>Better calibration:</strong> Ensemble rank histograms are substantially closer to uniform than CasCast, indicating less overconfident predictions, by avoiding deterministic priors.</li>
             <li><strong>Uncertainty where it matters:</strong> Reconstruction ensemble variance increases with precipitation intensity and tracks chaotic extreme-weather regions.</li>
-            <li><strong>Efficient and scalable:</strong> The first stage is lighter than previous designs and the latent forecaster improves consistently with model scaling.</li>
-            <li><strong>Robust operational behavior:</strong> Masking-based conditioning supports variable input context and remains effective with limited or imperfect observations.</li>
+            <li><strong>Efficient and scalable:</strong> The first stage is lighter than previous designs and improves when using more compute at inference time.</li>
+            <li><strong>Robust operational behavior:</strong> Masking-based conditioning supports variable input context and remains effective with limited observations.</li>
           </ul>
         </div>
       </div>
@@ -351,24 +492,326 @@
 <!-- Comparison -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container is-fluid forecast-comparison-container">
       <h2 class="title is-3 has-text-centered">Forecasts Comparison</h2>
-      <video width="100%" preload="metadata" autoplay muted loop playsinline>
-        <source src="static/video_samples/comparison_forecasts/comp_combined.mp4" type="video/mp4">
-      </video>
-      <div class="column is-full">
-      <p class="content" style="margin-top: 0.5rem;">
-        Our forecasts remain realistic and sharp, while CasCast diverges to unrealistic predictions and Earthformer produces increasingly blurry forecasts.
-      </p>
+      <div class="forecast-comparison-stack">
+        <div class="forecast-comparison-grid">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_1_ours.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ours</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over ours prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_2_ours.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ours</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over ours prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_3_ours.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_3_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ours</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over ours prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_4_ours.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_4_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ours</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over ours prediction">
+          </div>
+        </div>
+
+        <div class="forecast-comparison-grid">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_1_cascast.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">CasCast</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over CasCast prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_2_cascast.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">CasCast</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over CasCast prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_3_cascast.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_3_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">CasCast</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over CasCast prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_4_cascast.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_4_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">CasCast</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over CasCast prediction">
+          </div>
+        </div>
+
+        <div class="forecast-comparison-grid">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_1_earthformer.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Earthformer</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over Earthformer prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_2_earthformer.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Earthformer</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over Earthformer prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_3_earthformer.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_3_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Earthformer</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over Earthformer prediction">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/comp_sample_4_earthformer.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/comp_sample_4_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Earthformer</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over Earthformer prediction">
+          </div>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <p class="content" style="margin-top: 1.5rem;">
+          Our forecasts remain realistic and sharp, while CasCast diverges to unrealistic predictions and Earthformer produces increasingly blurry forecasts.
+        </p>
       </div>
       <h2 class="title is-3 has-text-centered" style="margin-top: 2rem;">Extreme Weather</h2>
-      <video width="60%" style="display: block; margin: 0 auto;" preload="metadata" autoplay muted loop playsinline>
-        <source src="static/video_samples/hurricanes/combined_hurricane_video.webm" type="video/webm">
-      </video>
-      <div class="column is-full">
-      <p class="content" style="margin-top: 0.5rem;">
-        Our model is able to capture the chaotic dynamics of extreme weather events such as hurricanes, capturing the complex circular motion of long-tail events.
-      </p>
+      <div class="forecast-comparison-stack">
+        <div class="forecast-comparison-grid forecast-comparison-grid--two-columns">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_ens1.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 1</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 1">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_ens1.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 1</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 1">
+          </div>
+        </div>
+
+        <div class="forecast-comparison-grid forecast-comparison-grid--two-columns">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_ens2.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 2</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 2">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_ens2.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 2</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 2">
+          </div>
+        </div>
+
+        <div class="forecast-comparison-grid forecast-comparison-grid--two-columns">
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_ens3.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_1_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 3</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 3">
+          </div>
+          <div class="forecast-comparison" data-start-position="50">
+            <div class="forecast-comparison__viewport">
+              <video class="forecast-comparison__video forecast-comparison__video--base" muted loop preload="metadata" autoplay playsinline>
+                <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_ens3.mp4" type="video/mp4">
+              </video>
+              <div class="forecast-comparison__overlay">
+                <video class="forecast-comparison__video forecast-comparison__video--overlay" muted loop preload="metadata" autoplay playsinline>
+                  <source src="static/video_samples/forecasts/split_videos/hurricane_sample_2_gt.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="forecast-comparison__divider" aria-hidden="true"><span class="forecast-comparison__handle"></span></div>
+              <div class="forecast-comparison__label forecast-comparison__label--left">Ground Truth</div>
+              <div class="forecast-comparison__label forecast-comparison__label--right">Ensemble Member 3</div>
+            </div>
+            <input class="forecast-comparison__slider" type="range" min="0" max="100" value="50" aria-label="Reveal ground truth over hurricane ensemble member 3">
+          </div>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <p class="content" style="margin-top: 1.5rem;">
+          Our model is able to capture the chaotic dynamics of extreme weather events such as hurricanes, capturing the complex circular motion of long-tail events.
+        </p>
       </div>
     </div>
     
@@ -396,7 +839,7 @@
         <div class="content">
 
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
             You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
