@@ -565,6 +565,23 @@ body {
   text-decoration: underline;
 }
 
+.visitor-map {
+  display: flex;
+  justify-content: center;
+  max-width: 220px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.72;
+}
+
+.visitor-map iframe,
+.visitor-map img,
+.visitor-map canvas,
+.visitor-map object,
+.visitor-map embed {
+  max-width: 220px !important;
+  height: auto !important;
+}
+
 /* BibTeX Styling */
 pre {
   background: var(--background-accent) !important;
