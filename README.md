@@ -17,6 +17,7 @@
 
 [![Website](https://img.shields.io/badge/Project-Page-lightgrey)](https://compvis.github.io/weather-rf/)
 [![Paper](https://img.shields.io/badge/arXiv-PDF_(Soon)-b31b1b)](_blank)
+[![Huggingface](https://img.shields.io/badge/Huggingface-Weights-orange)](https://huggingface.co/CompVis/weather-rf)
 
 <p align="center"> <sup>*</sup> <i>equal contribution</i> </p>
 
