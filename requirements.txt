@@ -1,0 +1,16 @@
+torch==2.9.1
+torchvision==0.24.1
+numpy
+scipy
+pandas
+h5py
+einops
+jaxtyping
+wandb
+tqdm
+click
+torchmetrics
+properscoring
+tabulate
+mediapy
+notebook
