@@ -651,7 +651,7 @@ def get_subset(dataset: torch.utils.data.Dataset, seed: int, num_samples: int) -
     subset = torch.utils.data.Subset(dataset, indices)
     return subset
 
-def normalize(data: torch.Tensor, data_min: float=0., data_max: float=1., exp_min: float=-1., exp_max: float=1., exp_dtype: torch.dtype=torch.bfloat16):  # TODO: we could turn these into parser arguments
+def normalize(data: torch.Tensor, data_min: float=0., data_max: float=1., exp_min: float=-1., exp_max: float=1., exp_dtype: torch.dtype=torch.bfloat16):
     data = data.clamp(data_min, data_max)
     data = (data - data_min) / (data_max - data_min)
     data = data * (exp_max - exp_min) + exp_min

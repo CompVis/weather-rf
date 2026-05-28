@@ -449,8 +449,6 @@ class RaMViDFM(nn.Module):
                 samples += [sample[i].cpu() for i in range(sample.shape[0])]
                 gts += [batch[i].cpu() for i in range(batch.shape[0])]
 
-                # TODO do validation sampling
-
                 pbar.update(batch.size(0))
                 if len(samples) >= max_steps:
                     break
@@ -604,7 +602,6 @@ def get_lsm(
         m_norm=0.0452,
         std_norm=0.5391,
         val_ensemble_size=10,
-        # TODO: change freud ckpt path when available
         freud_ckpt_path=freud_ckpt_path,
         mapping=MappingNetwork(
             n_layers=3,
@@ -620,9 +617,8 @@ def get_lsm(
             patch_sizes=[(1, 2, 2)],
             d_cond_norm=512,
             activate_temporal_attention=True,
-            factorized_attention_impl="parallel" # TODO: potentially change
+            factorized_attention_impl="parallel"
         ),
-        # TODO: potentially change freud impl
         freud_fs=FreudDiffusionAE(
             img_size=(384, 384),
             num_channels=1,

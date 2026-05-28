@@ -966,7 +966,6 @@ class CrossAttentionBlock(nn.Module):
         self.d_head = d_head
         self.d_model = d_model
         self.n_heads = d_model // d_head
-        # TODO check if ada norm makes sense for keys and values
         if d_cond_norm is not None:
             self.norm = AdaRMSNorm(d_model, d_cond_norm)
         else:
