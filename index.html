@@ -93,6 +93,146 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
+
+  <style>
+    .icon-svg {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      fill: currentColor;
+      vertical-align: -0.125em;
+    }
+
+    .more-works-container {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+    }
+
+    .more-works-btn {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: .6rem 1rem;
+      font-weight: 600;
+      font-size: .85rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / .07), 0 2px 4px -2px rgb(0 0 0 / .05);
+      transition: .25s cubic-bezier(.4, 0, .2, 1);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-family: inherit;
+    }
+
+    .more-works-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / .08), 0 4px 6px -4px rgb(0 0 0 / .04);
+      border-color: #2563eb;
+    }
+
+    .more-works-btn .dropdown-arrow { transition: transform .25s cubic-bezier(.4, 0, .2, 1); }
+    .more-works-btn.active .dropdown-arrow { transform: rotate(180deg); }
+
+    .more-works-dropdown {
+      position: absolute;
+      top: calc(100% + .5rem);
+      right: 0;
+      width: 450px;
+      max-width: 90vw;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / .08), 0 4px 6px -4px rgb(0 0 0 / .04);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .25s cubic-bezier(.4, 0, .2, 1), visibility .25s cubic-bezier(.4, 0, .2, 1), transform .25s cubic-bezier(.4, 0, .2, 1);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .more-works-dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1rem .75rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .dropdown-header h4 {
+      margin: 0;
+      font-size: .95rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: .35rem;
+      border-radius: 10px;
+      transition: .25s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .close-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    .works-list { padding: .75rem; }
+
+    .work-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: .25s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .work-item + .work-item { margin-top: .25rem; }
+    .work-item:hover { background: #f1f5f9; }
+
+    .work-info h5 {
+      margin: 0 0 .25rem;
+      font-size: .95rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .work-info p {
+      margin: 0 0 .25rem;
+      font-size: .85rem;
+      color: #64748b;
+      line-height: 1.45;
+    }
+
+    .work-venue {
+      font-size: .78rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    @media screen and (max-width: 768px) {
+      .more-works-container { top: 1rem; right: 1rem; }
+      .more-works-btn { padding: .55rem .85rem; font-size: .8rem; }
+      .more-works-dropdown { width: min(450px, calc(100vw - 2rem)); }
+    }
+  </style>
   
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
@@ -165,6 +305,39 @@
 </head>
 <body>
 
+  <div class="more-works-container">
+    <button class="more-works-btn" type="button" onclick="toggleMoreWorks()" title="Other Works" aria-expanded="false" aria-controls="moreWorksDropdown">
+      <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5a2 2 0 00-2 2v14l4-3h12a2 2 0 002-2V5a2 2 0 00-2-2m0 11H6.33L5 15.25V5h14zm-9-7h7v2h-7zm0 3h5v2h-5zM7 7h2v5H7z"/></svg>
+      <span>Other Works</span>
+      <svg class="icon-svg dropdown-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown" aria-hidden="true">
+      <div class="dropdown-header">
+        <h4>Other Works</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()" aria-label="Close other works">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71L12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.7 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z"/></svg>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://compvis.github.io/patch-forcing/" class="work-item" target="_blank" rel="noreferrer">
+          <div class="work-info">
+            <h5>Patch Forcing</h5>
+            <p>Difficulty-aware adaptive sampling for image generation.</p>
+            <span class="work-venue">CVPR 2026</span>
+          </div>
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14z"/><path d="M5 5h6v2H7v10h10v-4h2v6H5z"/></svg>
+        </a>
+        <a href="https://compvis.github.io/myriad/" class="work-item" target="_blank" rel="noreferrer">
+          <div class="work-info">
+            <h5>Myriad</h5>
+            <p>Envisioning the future, one step at a time.</p>
+            <span class="work-venue">CVPR 2026</span>
+          </div>
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14z"/><path d="M5 5h6v2H7v10h10v-4h2v6H5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Scroll to Top Button -->
   <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
