@@ -74,13 +74,17 @@ Our transformer-based compression stages is faster to run than CNN-based VAEs fr
 ### ⛈️ Forecasting
 
 <p align="center">
-<img src="docs/qual-forecast.svg" alt="Qualitative Forecasts." width="500px">
+<img src="docs/qual-forecast.gif" alt="Qualitative Forecasts." width="500px">
 </p>
 
 Forecasts remain realistic over time and ensemble members capture different plausible outcomes. Our pipeline captures complex dynamics of long-tail extreme weather events.
 
 <p align="center">
-<img src="docs/qual-hurricane.svg" alt="Qualitative Hurricane event." width="500px">
+<img src="docs/qual-forecast-comparison.gif" alt="Qualitative forecast comparison." width="500px">
+</p>
+
+<p align="center">
+<img src="docs/qual-hurricane.gif" alt="Qualitative Hurricane event." width="500px">
 </p>
 
 **For more insights please read our [paper](https://openaccess.thecvf.com//content/CVPR2026/papers/Schusterbauer_Probabilistic_Precipitation_Nowcasting_with_Rectified_Flow_Transformers_CVPR_2026_paper.pdf)**.
@@ -228,7 +232,7 @@ We recommend using the `original_model` when exact reproduction/comparison is of
 If you use our work or parts thereof, please cite us accordingly: 
 
 ```bibtex
-@inproceedings{schusterbauer2026probabilisticprecipitation,
+@inproceedings{schusterbauer2026weatherrf,
     title = {Probabilistic Precipitation Nowcasting with Rectified Flow Transformers},
     author = {Schusterbauer, Johannes and Wiese, Jannik and Stracke, Nick and Phan, Timy and Ommer, Bj{\"o}rn},
     booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},

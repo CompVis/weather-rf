@@ -1,7 +1,7 @@
 # LICENSE FOR PERSONAL AND SCIENTIFIC NON-COMMERCIAL RESEARCH PURPOSES
 (hereinafter referred to as „License“)
 
-Ludwig-Maximilians-Universität München, Akademiestraße 7, 80799 Munich, Germany (“Licensor”), is a leading research university in Europe and has developed the software „Patch-Forcing“ as part of its activities. The Licensor has the rights to use the aforementioned software. The Licensor is willing to grant limited rights, under certain conditions including – but not limited to – attribution as set out in Sections 3.5 and 3.6 below, to use the software for scientific or personal non-commercial research only; the use for other purposes is subject to a further license agreement with the Licensor. 
+Ludwig-Maximilians-Universität München, Akademiestraße 7, 80799 Munich, Germany (“Licensor”), is a leading research university in Europe and has developed the software „Weather RF“ as part of its activities. The Licensor has the rights to use the aforementioned software. The Licensor is willing to grant limited rights, under certain conditions including – but not limited to – attribution as set out in Sections 3.5 and 3.6 below, to use the software for scientific or personal non-commercial research only; the use for other purposes is subject to a further license agreement with the Licensor. 
 
 
 ## 1 Definitions
@@ -10,7 +10,7 @@ Ludwig-Maximilians-Universität München, Akademiestraße 7, 80799 Munich, Germa
 
 „Object Code“ is the intermediate result of a compiler or translation process of the Source Code of the Software.
 
-„Software“ means the computer program made available by the Licensor in the repository under „https://github.com/CompVis/patch-forcing" in Object or Source Code form.
+„Software“ means the computer program made available by the Licensor in the repository under „https://github.com/CompVis/weather-rf" in Object or Source Code form.
 
 „Source Code“ means the code of the Software in the version of the programming language(s).
 
