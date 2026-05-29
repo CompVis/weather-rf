@@ -54,13 +54,13 @@ On top of this first stage, we train a *latent-space rectified-flow forecasting 
 ### 🗜️ Uncertainty-aware Compression
 
 <p align="center">
-<img src="docs/freud-var-correlation.svg" alt="Variance vs. Precipitation Intensity." width="500px">
+<img src="docs/freud-recon-var.svg" alt="Reconstruction with Variance map." width="600px">
 </p>
 
 Variance of reconstructions scales with precipitation intensity. Ensemble variance of decoder reconstructions provides a meaningful and localized uncertainty signal.
 
 <p align="center">
-<img src="docs/freud-recon-var.svg" alt="Reconstruction with Variance map." width="500px">
+<img src="docs/freud-var-correlation.svg" alt="Variance vs. Precipitation Intensity." width="200px">
 </p>
 
 ### ⏳ Efficiency
